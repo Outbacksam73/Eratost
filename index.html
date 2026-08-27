@@ -1,282 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sieve of Eratosthenes & Prime Gap Analyzer</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --accent: #f59e0b;
-      --prime: #10b981;
-      --composite: #334155;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --border: #475569;
-    }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 900px;
-      width: 100%;
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-    h1 { margin-top: 0; color: var(--accent); }
-    .controls {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    input[type="number"] {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.5rem;
-      border-radius: 6px;
-      width: 100px;
-    }
-    button {
-      background: var(--accent);
-      border: none;
-      color: #000;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover { opacity: 0.9; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-      gap: 6px;
-      margin-bottom: 2rem;
-      max-height: 300px;
-      overflow-y: auto;
-      padding: 0.5rem;
-      background: var(--bg);
-      border-radius: 8px;
-    }
-    .cell {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--composite);
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: var(--muted);
-    }
-    .cell.prime {
-      background: var(--prime);
-      color: #000;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .stat-card {
-      background: var(--bg);
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .stat-card h3 { margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--muted); }
-    .stat-card p { margin: 0; font-size: 1.25rem; font-weight: bold; }
-    
-    /* Frequency Chart */
-    .chart {
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      height: 150px;
-      background: var(--bg);
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      margin-top: 0.5rem;
-    }
-    .bar-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      justify-content: flex-end;
-    }
-    .bar {
-      width: 100%;
-      background: var(--accent);
-      border-radius: 4px 4px 0 0;
-      min-height: 2px;
-      transition: height 0.3s ease;
-    }
-    .bar-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer a:hover { text-decoration: underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunnavant Painting Service - Greater Upstate SC</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1a2a3a',
+                        brandBlue: '#0066cc',
+                        brandOrange: '#e67e22',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-  <div class="container">
-    <h1>Sieve & Prime Gap Analyzer</h1>
-    
-    <div class="controls">
-      <label for="limit">Limit (N):</label>
-      <input type="number" id="limit" value="100" min="10" max="10000" />
-      <button id="calcBtn">Calculate</button>
-    </div>
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-navy text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl md:text-2xl font-bold tracking-tight text-white hover:opacity-90">
+                Dunnavant Painting Service
+            </a>
+            <a href="tel:8392329543" class="bg-brandBlue hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
+                <i class="fa-solid fa-phone"></i>
+                <span class="hidden sm:inline">(839) 232-9543</span>
+            </a>
+        </div>
+    </header>
 
-    <div class="stats">
-      <div class="stat-card">
-        <h3>TOTAL PRIMES FOUND</h3>
-        <p id="totalPrimes">0</p>
-      </div>
-      <div class="stat-card">
-        <h3>LARGEST GAP</h3>
-        <p id="maxGap">0</p>
-      </div>
-      <div class="stat-card">
-        <h3>MOST COMMON GAP</h3>
-        <p id="modeGap">N/A</p>
-      </div>
-    </div>
+    <!-- Hero Section -->
+    <section class="relative bg-navy text-white py-16 px-4 text-center overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
+            <img src="./1000001651.jpg" alt="Dunnavant Painting Service Logo" class="w-44 h-auto mb-6 rounded-lg shadow-lg border border-gray-700">
+            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide mb-3">
+                Dunnavant Painting Service
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 font-medium mb-2">
+                Serving the Greater Upstate SC Area
+            </p>
+            <span class="inline-block bg-white/10 text-gray-200 text-sm px-4 py-1 rounded-full mb-8 border border-white/20">
+                Owner: Kenny Dunnavant
+            </span>
+            <a href="tel:8392329543" class="bg-brandOrange hover:bg-orange-600 text-white font-bold text-lg px-8 py-4 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                Call for a Free Estimate
+            </a>
+        </div>
+    </section>
 
-    <strong>Number Grid</strong>
-    <div class="grid" id="grid"></div>
+    <!-- Services Grid -->
+    <section class="max-w-7xl mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-center text-navy mb-12 relative after:content-[''] after:block after:w-16 after:h-1 after:bg-brandBlue after:mx-auto after:mt-3">
+            Our Services
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-brandBlue hover:shadow-md transition">
+                <div class="text-brandBlue text-3xl mb-4"><i class="fa-solid fa-paint-roller"></i></div>
+                <h3 class="text-xl font-bold text-navy mb-3">Interior Painting & Prep</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Full interior wall, ceiling, hallway, and trim painting with clean line work, full masking, and thorough surface prep.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-brandBlue hover:shadow-md transition">
+                <div class="text-brandBlue text-3xl mb-4"><i class="fa-solid fa-house"></i></div>
+                <h3 class="text-xl font-bold text-navy mb-3">Exterior & Deck Staining</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Protective coatings, porch finishing, deck staining, handrail painting, and weather-resistant wood seals.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-brandBlue hover:shadow-md transition">
+                <div class="text-brandBlue text-3xl mb-4"><i class="fa-solid fa-building"></i></div>
+                <h3 class="text-xl font-bold text-navy mb-3">Commercial & Residential</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Reliable painting services for local offices, storefronts, multi-tenant hallways, and residential properties.
+                </p>
+            </div>
+        </div>
+    </section>
 
-    <strong>Prime Gap Frequency Distribution</strong>
-    <div class="chart" id="chart"></div>
-  </div>
+    <!-- Gallery Section -->
+    <section class="bg-gray-100 py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-navy mb-12 relative after:content-[''] after:block after:w-16 after:h-1 after:bg-brandBlue after:mx-auto after:mt-3">
+                Work Gallery
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001653.jpg" alt="Deck Handrail & Stairs Staining Work" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Deck & Stairs Staining</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001655.jpg" alt="White Railing & Porch Painting" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Porch Railing & Decking</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001657.jpg" alt="Porch Handrail Refinishing" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Porch & Exterior Refinishing</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001659.jpg" alt="Stained Front Steps & Entryway" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Stained Entryway Steps</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001661_2.jpg" alt="Finished Porch Railing Work" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Exterior Railing Finish</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001663_2.jpg" alt="Commercial Interior Hallway Painting" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Commercial Hallway Interior</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001665_2.jpg" alt="Interior Wall Painting" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Interior Wall Refinishing</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="./1000001667_2.jpg" alt="Office Space Painting Work" class="w-full h-64 object-cover">
+                    <div class="p-4 text-center font-semibold text-navy text-sm">Office Partition & Interior</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>Explore more interactive numerical experiments at <a href="https://outbacksams.com" target="_blank" rel="noopener noreferrer">Outback Sams</a>.</p>
-  </footer>
+    <!-- Contact & Business Card Section -->
+    <section class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col items-center">
+            <h2 class="text-3xl font-bold text-navy mb-4">Get In Touch</h2>
+            <p class="text-gray-600 mb-6">Contact Kenny Dunnavant today for your next residential or commercial project.</p>
+            
+            <div class="space-y-2 mb-8 text-lg">
+                <p><strong>Owner:</strong> Kenny Dunnavant</p>
+                <p><strong>Phone:</strong> <a href="tel:8392329543" class="text-brandBlue font-bold hover:underline">(839) 232-9543</a></p>
+                <p><strong>Service Area:</strong> Greater Upstate SC Area</p>
+            </div>
 
-  <script>
-    function runSieve(limit) {
-      const isPrime = new Array(limit + 1).fill(true);
-      isPrime[0] = isPrime[1] = false;
+            <img src="./1000001650.jpg" alt="Dunnavant Painting Service Business Card" class="w-full max-w-md rounded-xl shadow-md border border-gray-200">
+        </div>
+    </section>
 
-      for (let p = 2; p * p <= limit; p++) {
-        if (isPrime[p]) {
-          for (let i = p * p; i <= limit; i += p) {
-            isPrime[i] = false;
-          }
-        }
-      }
+    <!-- Footer -->
+    <footer class="bg-navy text-gray-400 py-8 text-center text-sm border-t border-gray-800">
+        <p>&copy; 2026 Dunnavant Painting Service. All rights reserved.</p>
+    </footer>
 
-      const primes = [];
-      for (let i = 2; i <= limit; i++) {
-        if (isPrime[i]) primes.push(i);
-      }
-
-      return { isPrime, primes };
-    }
-
-    function analyzeGaps(primes) {
-      const gaps = {};
-      let maxGap = 0;
-
-      for (let i = 1; i < primes.length; i++) {
-        const gap = primes[i] - primes[i - 1];
-        gaps[gap] = (gaps[gap] || 0) + 1;
-        if (gap > maxGap) maxGap = gap;
-      }
-
-      let modeGap = "N/A";
-      let maxFreq = 0;
-      for (const [gap, count] of Object.entries(gaps)) {
-        if (count > maxFreq) {
-          maxFreq = count;
-          modeGap = gap;
-        }
-      }
-
-      return { gaps, maxGap, modeGap };
-    }
-
-    function updateUI() {
-      const limit = parseInt(document.getElementById('limit').value, 10);
-      const { isPrime, primes } = runSieve(limit);
-      const { gaps, maxGap, modeGap } = analyzeGaps(primes);
-
-      // Update Stats
-      document.getElementById('totalPrimes').textContent = primes.length;
-      document.getElementById('maxGap').textContent = maxGap;
-      document.getElementById('modeGap').textContent = modeGap !== "N/A" ? `${modeGap} (x${gaps[modeGap]})` : "N/A";
-
-      // Render Grid
-      const grid = document.getElementById('grid');
-      grid.innerHTML = '';
-      for (let i = 1; i <= limit; i++) {
-        const cell = document.createElement('div');
-        cell.className = `cell ${isPrime[i] ? 'prime' : ''}`;
-        cell.textContent = i;
-        grid.appendChild(cell);
-      }
-
-      // Render Chart
-      const chart = document.getElementById('chart');
-      chart.innerHTML = '';
-      const sortedGaps = Object.keys(gaps).map(Number).sort((a, b) => a - b);
-      const maxCount = Math.max(...Object.values(gaps), 1);
-
-      sortedGaps.forEach(gap => {
-        const count = gaps[gap];
-        const barContainer = document.createElement('div');
-        barContainer.className = 'bar-container';
-
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = `${(count / maxCount) * 100}%`;
-        bar.title = `Gap ${gap}: ${count} occurrences`;
-
-        const label = document.createElement('div');
-        label.className = 'bar-label';
-        label.textContent = gap;
-
-        barContainer.appendChild(bar);
-        barContainer.appendChild(label);
-        chart.appendChild(barContainer);
-      });
-    }
-
-    document.getElementById('calcBtn').addEventListener('click', updateUI);
-    updateUI();
-  </script>
 </body>
 </html>
+
